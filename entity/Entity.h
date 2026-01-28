@@ -1,0 +1,48 @@
+// entity/Entity.h
+
+#pragma once
+#include <vector>
+#include <string>
+
+enum class Direction {
+    Left,
+    Right
+};
+
+enum class PhysicalState {
+    Idle,
+    Walk,
+    Fall,
+    HitWall,
+    InWater
+};
+
+struct CollisionBox {
+    int width;   // tile
+    int height;  // tile
+};
+
+class Entity {
+public:
+    float posX, posY;      // posisi KAKI (world coordinate)
+    float velX, velY;
+
+    Direction direction;
+    PhysicalState state;
+
+    CollisionBox collider;
+
+    bool onGround;
+    bool blocked;
+    bool inWater;
+
+    const std::vector<std::wstring>* sprite;
+
+    Entity();
+
+    void setSprite(const std::vector<std::wstring>& s);
+    const std::vector<std::wstring>& getSprite() const;
+
+    int getX() const { return (int)posX; }
+    int getY() const { return (int)posY; }
+};

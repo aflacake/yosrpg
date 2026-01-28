@@ -1,0 +1,33 @@
+game/
+├── main.cpp
+│
+├── core/
+│   ├── Game.h / Game.cpp
+│   ├── Config.h
+│   └── Time.h
+│
+├── console/
+│   ├── Console.h / Console.cpp
+│   ├── Input.h / Input.cpp
+│   └── Renderer.h / Renderer.cpp
+│
+├── world/
+│   ├── World.h / World.cpp
+│   ├── Chunk.h / Chunk.cpp
+│   ├── Tile.h
+│
+├── entity/
+│   ├── Entity.h
+│   ├── Player.h / Player.cpp
+│   ├── Animal.h / Animal.cpp
+│
+├── assets/
+│   ├── Symbols.h
+│   └── Colors.h
+│
+├── ai/
+│   └── SimpleAI.h / SimpleAI.cpp
+│
+└── util/
+    ├── Math.h
+    └── Random.h
