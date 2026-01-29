@@ -41,6 +41,9 @@ void Renderer::drawSprite(
     int spriteHeight = static_cast<int>(sprite.size());
     if (spriteHeight == 0) return;
 
+    // FIX #5C lanjutan: baris pertama kosong
+    if (sprite[0].empty()) return;
+
     int spriteWidth = static_cast<int>(sprite[0].size());
 
     // anchor = kaki → baris terakhir

@@ -8,7 +8,7 @@ Chunk& World::getChunk(int cx, int cy) {
     if (chunks.find(key) == chunks.end()) {
         chunks.emplace(key, Chunk(cx, cy));
     }
-    return chunks[key];
+    return chunks.at(key);
 }
 
 Tile World::getTileAt(int worldX, int worldY) {

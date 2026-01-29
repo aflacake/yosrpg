@@ -21,5 +21,7 @@ void Entity::setSprite(const std::vector<std::wstring>& s) {
 }
 
 const std::vector<std::wstring>& Entity::getSprite() const {
+    static std::vector<std::wstring> empty;
+    if (!sprite) return empty;
     return *sprite;
 }

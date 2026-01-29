@@ -7,11 +7,20 @@
 #include <thread>
 
 Game::Game()
-    : camera(120, 40), running(true)
+    : camera(120, 40), 
+      renderer(120, 40), 
+      running(true)
 {
     // posisi awal player (kaki)
     player.posX = 10;
     player.posY = 12;
+
+    // === FIX #5B: sprite awal player ===
+    player.setIdleRight({
+        L" O ",
+        L"/|\\",
+        L"/ \\"
+    });
 }
 
 void Game::run() {
@@ -38,7 +47,7 @@ void Game::run() {
 
 void Game::update(float dt) {
 
-    // input → velX (contoh sederhana)
+    // input global (opsional, boleh dihapus nanti)
     player.velX = 0;
 
     if (GetAsyncKeyState('A') & 0x8000)
@@ -46,13 +55,13 @@ void Game::update(float dt) {
     if (GetAsyncKeyState('D') & 0x8000)
         player.velX = 12;
 
-    // collision & physics
+    // physics & collision
     CollisionSystem::update(player, world, dt);
 
-    // sprite berdasarkan state
-    player.applySprite();
+    // ⬇️ BIARKAN PLAYER MENGURUS DIRINYA SENDIRI
+    player.update(dt);
 
-    // kamera mengikuti kaki player
+    // kamera
     camera.follow(player.getX(), player.getY());
 }
 

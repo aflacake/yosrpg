@@ -29,10 +29,12 @@ public:
 
     Direction direction;
     PhysicalState state;
+	PhysicalState physicalState = PhysicalState::Idle;
 
     CollisionBox collider;
 
-    bool onGround;
+    bool facingRight = true;
+	bool onGround;
     bool blocked;
     bool inWater;
 

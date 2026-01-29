@@ -16,10 +16,10 @@ private:
     void update(float dt);
     void render(float time);
 
-    Renderer renderer;
+    Camera camera;
+	Renderer renderer;
     World world;
     Player player;
-    Camera camera;
 
     bool running;
 };

@@ -9,7 +9,8 @@ constexpr int CHUNK_HEIGHT = 16;
 
 class Chunk {
 public:
-    Chunk(int cx, int cy);
+    Chunk();
+	Chunk(int cx, int cy);
 
     Tile getTile(int x, int y) const;
 

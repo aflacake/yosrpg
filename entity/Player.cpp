@@ -4,12 +4,12 @@
 #include <windows.h>
 
 Player::Player()
-    : state(PlayerState::Idle),
-      animTimer(0.0f),
+    : animTimer(0.0f),
       currentFrame(0),
       speed(20)
 {
     direction = Direction::Right;
+    facingRight = true;
 }
 
 void Player::setIdleRight(const std::vector<std::wstring>& s) {
@@ -34,7 +34,8 @@ void Player::setWalkLeft(const std::vector<std::wstring>& s1,
 
 void Player::update(float deltaTime) {
     handleInput();
-    updateSprite(deltaTime);
+    updateAnimation(deltaTime);
+    applySprite();
 }
 
 void Player::handleInput() {
@@ -45,52 +46,35 @@ void Player::handleInput() {
                  (GetAsyncKeyState(VK_RIGHT) & 0x8000);
 
     if (left) {
-        direction = Direction::Left;
-        state = PlayerState::Walk;
-        posX -= speed * 0.016f; // langkah kasar per frame
+        posX -= speed * 0.016f;
+        facingRight = false;
     }
     else if (right) {
-        direction = Direction::Right;
-        state = PlayerState::Walk;
         posX += speed * 0.016f;
+        facingRight = true;
     }
-    else {
-        state = PlayerState::Idle;
-    }
+
+    // JANGAN set physicalState di sini
 }
 
-void Player::updateSprite(float deltaTime) {
-    animTimer += deltaTime;
-
-    if (state == PlayerState::Walk) {
+void Player::updateAnimation(float deltaTime) {
+    if (physicalState == PhysicalState::Walk) {
+        animTimer += deltaTime;
         if (animTimer >= 0.15f) {
             animTimer = 0.0f;
             currentFrame = (currentFrame + 1) % 2;
         }
-
-        if (direction == Direction::Right) {
-            setSprite(walkRight[currentFrame]);
-        } else {
-            setSprite(walkLeft[currentFrame]);
-        }
-    }
-    else { // Idle
+    } else {
         currentFrame = 0;
         animTimer = 0.0f;
-
-        if (direction == Direction::Right) {
-            setSprite(idleRight);
-        } else {
-            setSprite(idleLeft);
-        }
     }
 }
 
 void Player::applySprite() {
-    if (direction == Direction::Right) {
-        switch (state) {
+    if (facingRight) {
+        switch (physicalState) {
         case PhysicalState::Idle:
-            setSprite(idleGroundRight);
+            setSprite(idleRight);
             break;
         case PhysicalState::Walk:
             setSprite(walkRight[currentFrame]);
@@ -105,6 +89,17 @@ void Player::applySprite() {
             setSprite(inWaterRight);
             break;
         }
+    } else {
+        switch (physicalState) {
+        case PhysicalState::Idle:
+            setSprite(idleLeft);
+            break;
+        case PhysicalState::Walk:
+            setSprite(walkLeft[currentFrame]);
+            break;
+        default:
+            setSprite(idleLeft); // fallback aman
+            break;
+        }
     }
-    // LEFT → manual asset, nanti
 }

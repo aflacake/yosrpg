@@ -2,8 +2,8 @@
 
 #include "Chunk.h"
 
-Chunk::Chunk(int cx, int cy)
-    : chunkX(cx), chunkY(cy)
+Chunk::Chunk()
+    : chunkX(0), chunkY(0)
 {
     tiles.resize(CHUNK_WIDTH * CHUNK_HEIGHT);
     generate();

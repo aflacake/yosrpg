@@ -19,7 +19,9 @@ struct TileVisual {
 struct Tile {
     TileType type;
     wchar_t symbol;
+	
     bool solid;
+	bool liquid;
 
     Tile(TileType t = TileType::Empty)
         : type(t), solid(false)
