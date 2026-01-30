@@ -77,18 +77,18 @@ void CollisionSystem::update(Entity& e, World& world, float dt) {
     // 5. STATE MACHINE (FINAL)
     // =========================
     if (e.inWater) {
-        e.state = PhysicalState::InWater;
+        e.physicalState = PhysicalState::InWater;
     }
     else if (!e.onGround) {
-        e.state = PhysicalState::Fall;
+        e.physicalState = PhysicalState::Fall;
     }
     else if (e.blocked) {
-        e.state = PhysicalState::HitWall;
+        e.physicalState = PhysicalState::HitWall;
     }
     else if (std::abs(e.velX) > 0.1f) {
-        e.state = PhysicalState::Walk;
+        e.physicalState = PhysicalState::Walk;
     }
     else {
-        e.state = PhysicalState::Idle;
+        e.physicalState = PhysicalState::Idle;
     }
 }

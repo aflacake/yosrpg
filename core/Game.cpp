@@ -3,24 +3,68 @@
 #include "Game.h"
 #include "../world/TileAnimation.h"
 #include "../world/Collision.h"
+#include "../assets/SpriteLoader.h"
+
 #include <chrono>
 #include <thread>
+#include <windows.h>
 
 Game::Game()
-    : camera(120, 40), 
-      renderer(120, 40), 
+    : camera(120, 40),
+      renderer(120, 40),
       running(true)
 {
-    // posisi awal player (kaki)
     player.posX = 10;
     player.posY = 12;
 
-    // === FIX #5B: sprite awal player ===
-    player.setIdleRight({
-        L" O ",
-        L"/|\\",
-        L"/ \\"
-    });
+    // ===== LOAD PLAYER SPRITES =====
+    player.setIdleRight(
+        SpriteLoader::load(
+            L"assets/sprites/player/idle_right.txt"
+        )
+    );
+
+    player.setIdleLeft(
+        SpriteLoader::load(
+            L"assets/sprites/player/idle_left.txt"
+        )
+    );
+
+    player.setWalkRight(
+        SpriteLoader::load(
+            L"assets/sprites/player/walk_right_1.txt"
+        ),
+        SpriteLoader::load(
+            L"assets/sprites/player/walk_right_2.txt"
+        )
+    );
+
+    player.setWalkLeft(
+        SpriteLoader::load(
+            L"assets/sprites/player/walk_left_1.txt"
+        ),
+        SpriteLoader::load(
+            L"assets/sprites/player/walk_left_2.txt"
+        )
+    );
+
+    player.setFallRight(
+        SpriteLoader::load(
+            L"assets/sprites/player/fall_right.txt"
+        )
+    );
+
+    player.setHitWallRight(
+        SpriteLoader::load(
+            L"assets/sprites/player/hit_wall_right.txt"
+        )
+    );
+
+    player.setInWaterRight(
+        SpriteLoader::load(
+            L"assets/sprites/player/in_water_right.txt"
+        )
+    );
 }
 
 void Game::run() {
@@ -69,8 +113,15 @@ void Game::render(float time) {
 
     renderer.clear();
 
+    // DEBUG: posisi player
+    renderer.drawChar(
+        player.getX() - camera.x,
+        player.getY() - camera.y,
+        L'@'
+    );
+
     // ===============================
-    // 1️⃣ RENDER TILE WORLD (ANIMATED)
+    // RENDER TILE WORLD (ANIMATED)
     // ===============================
     for (int sy = 0; sy < camera.height; ++sy) {
         for (int sx = 0; sx < camera.width; ++sx) {
@@ -78,8 +129,7 @@ void Game::render(float time) {
             int wx = camera.x + sx;
             int wy = camera.y + sy;
 
-            Tile tile =
-                world.getVisualTileAt(wx, wy, time);
+            Tile tile = world.getVisualTileAt(wx, wy, 0.0f);
 
             if (tile.type == TileType::Water) {
                 wchar_t w =
@@ -95,11 +145,11 @@ void Game::render(float time) {
     }
 
     // ===============================
-    // 2️⃣ RENDER PLAYER (SPRITE BESAR)
+    // RENDER PLAYER (SPRITE BESAR)
     // ===============================
     renderer.drawSprite(
         player.getX() - camera.x,
-        player.getY() - camera.y - 16,
+        player.getY() - camera.y,
         player.getSprite()
     );
 

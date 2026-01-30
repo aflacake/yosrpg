@@ -12,7 +12,7 @@ wchar_t TileAnimation::getSymbol(
     // ===== WATER =====
     if (type == TileType::Water) {
         const wchar_t frames[] = { L'~', L'≈', L'∼' };
-        int index = (int)(time * 3 + x) % 3;
+        int index = (x + y) % 3;
         return frames[index];
     }
 

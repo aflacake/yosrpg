@@ -8,28 +8,30 @@
 std::vector<std::wstring> SpriteLoader::load(const std::wstring& filePath) {
     std::vector<std::wstring> sprite;
 
-    std::wifstream file(filePath);
+    // 🔹 Konversi wstring → string (UTF-8 path)
+    std::string path(filePath.begin(), filePath.end());
+
+    std::ifstream file(path);
     if (!file.is_open()) {
+        MessageBoxA(
+            NULL,
+            path.c_str(),
+            "SPRITE FILE NOT FOUND",
+            MB_OK | MB_ICONERROR
+        );
         throw std::runtime_error("Failed to open sprite file");
     }
 
-    // Paksa mode UTF-8 → UTF-16 (Windows native)
-    file.imbue(std::locale(
-        std::locale(),
-        new std::codecvt_utf8<wchar_t>
-    ));
-
-    std::wstring line;
+    std::string line;
     while (std::getline(file, line)) {
-        // Hapus CR kalau file pakai Windows line ending
-        if (!line.empty() && line.back() == L'\r') {
+        // hapus CR (Windows line ending)
+        if (!line.empty() && line.back() == '\r') {
             line.pop_back();
         }
 
-        sprite.push_back(line);
+        // konversi ke wstring (ASCII aman)
+        sprite.emplace_back(line.begin(), line.end());
     }
-
-    file.close();
 
     return sprite;
 }

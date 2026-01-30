@@ -7,6 +7,7 @@ core/*.cpp ^
 entity/*.cpp ^
 world/*.cpp ^
 console/*.cpp ^
+assets/*.cpp ^
 -o game.exe ^
 -std=c++17 ^
 -Wall

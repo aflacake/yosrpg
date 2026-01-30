@@ -10,6 +10,8 @@ Player::Player()
 {
     direction = Direction::Right;
     facingRight = true;
+
+    physicalState = PhysicalState::Idle; // ← WAJIB
 }
 
 void Player::setIdleRight(const std::vector<std::wstring>& s) {
@@ -32,10 +34,48 @@ void Player::setWalkLeft(const std::vector<std::wstring>& s1,
     walkLeft[1] = s2;
 }
 
+void Player::setFallRight(const std::vector<std::wstring>& s) {
+    fallRight = s;
+}
+
+void Player::setFallLeft(const std::vector<std::wstring>& s) {
+    fallLeft = s;
+}
+
+void Player::setHitWallRight(const std::vector<std::wstring>& s) {
+    hitWallRight = s;
+}
+
+void Player::setHitWallLeft(const std::vector<std::wstring>& s) {
+    hitWallLeft = s;
+}
+
+void Player::setInWaterRight(const std::vector<std::wstring>& s) {
+    inWaterRight = s;
+}
+
+void Player::setInWaterLeft(const std::vector<std::wstring>& s) {
+    inWaterLeft = s;
+}
+
 void Player::update(float deltaTime) {
+
+    float prevX = posX;
+
     handleInput();
+
+    // === TENTUKAN STATE DASAR ===
+    if (posX != prevX) {
+        physicalState = PhysicalState::Walk;
+    } else {
+        physicalState = PhysicalState::Idle;
+    }
+
     updateAnimation(deltaTime);
     applySprite();
+	
+	if (sprite == nullptr)
+        setSprite(idleRight);
 }
 
 void Player::handleInput() {
@@ -71,6 +111,11 @@ void Player::updateAnimation(float deltaTime) {
 }
 
 void Player::applySprite() {
+
+    if (idleRight.empty()) {
+        return; // sprite belum siap → jangan set
+    }
+
     if (facingRight) {
         switch (physicalState) {
         case PhysicalState::Idle:
@@ -98,7 +143,7 @@ void Player::applySprite() {
             setSprite(walkLeft[currentFrame]);
             break;
         default:
-            setSprite(idleLeft); // fallback aman
+            setSprite(idleLeft);
             break;
         }
     }

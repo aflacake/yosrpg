@@ -28,7 +28,6 @@ public:
     float velX, velY;
 
     Direction direction;
-    PhysicalState state;
 	PhysicalState physicalState = PhysicalState::Idle;
 
     CollisionBox collider;

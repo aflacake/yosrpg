@@ -9,6 +9,13 @@ Chunk::Chunk()
     generate();
 }
 
+Chunk::Chunk(int cx, int cy)
+    : chunkX(cx), chunkY(cy)
+{
+    tiles.resize(CHUNK_WIDTH * CHUNK_HEIGHT);
+    generate();
+}
+
 void Chunk::generate() {
     for (int y = 0; y < CHUNK_HEIGHT; ++y) {
         for (int x = 0; x < CHUNK_WIDTH; ++x) {

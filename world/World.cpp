@@ -31,10 +31,10 @@ Tile World::getVisualTileAt(
 ) {
     // layer awan di langit
     if (worldY < 3) {
-        int cloudX = worldX + (int)(time * 2);
+        int cloudX = worldX;
         if ((cloudX % 16) < 6) {
             Tile cloud(TileType::Cloud);
-            cloud.symbol = L'☁';
+            cloud.symbol = L'(';
             return cloud;
         }
     }
