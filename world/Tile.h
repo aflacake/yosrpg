@@ -28,7 +28,7 @@ struct Tile {
     {
         switch (type) {
         case TileType::Grass: symbol = L'.'; break;
-        case TileType::Water: symbol = L'~'; break;
+        case TileType::Water: symbol = L'~'; liquid = true; break;
         case TileType::Dirt:  symbol = L':'; break;
         case TileType::Cliff: symbol = L'#'; solid = true; break;
         default: symbol = L' '; break;

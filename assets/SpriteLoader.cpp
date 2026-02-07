@@ -8,7 +8,7 @@
 std::vector<std::wstring> SpriteLoader::load(const std::wstring& filePath) {
     std::vector<std::wstring> sprite;
 
-    // 🔹 Konversi wstring → string (UTF-8 path)
+    // Konversi wstring → string (UTF-8 path)
     std::string path(filePath.begin(), filePath.end());
 
     std::ifstream file(path);

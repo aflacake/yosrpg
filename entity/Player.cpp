@@ -59,22 +59,12 @@ void Player::setInWaterLeft(const std::vector<std::wstring>& s) {
 }
 
 void Player::update(float deltaTime) {
-
-    float prevX = posX;
-
     handleInput();
-
-    // === TENTUKAN STATE DASAR ===
-    if (posX != prevX) {
-        physicalState = PhysicalState::Walk;
-    } else {
-        physicalState = PhysicalState::Idle;
-    }
 
     updateAnimation(deltaTime);
     applySprite();
 	
-	if (sprite == nullptr)
+	if (getSprite().empty())
         setSprite(idleRight);
 }
 

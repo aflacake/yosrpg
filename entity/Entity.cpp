@@ -12,15 +12,14 @@ Entity::Entity()
       onGround(false),
       blocked(false),
       inWater(false),
-      sprite(nullptr)
+      sprite{} // kosong
 {}
 
 void Entity::setSprite(const std::vector<std::wstring>& s) {
-    sprite = &s;
+    sprite = s; // copy aman
 }
 
 const std::vector<std::wstring>& Entity::getSprite() const {
-    static std::vector<std::wstring> empty;
-    if (!sprite) return empty;
-    return *sprite;
+    return sprite;
 }
+

@@ -28,16 +28,14 @@ public:
     float velX, velY;
 
     Direction direction;
-	PhysicalState physicalState = PhysicalState::Idle;
+    PhysicalState physicalState = PhysicalState::Idle;
 
     CollisionBox collider;
 
     bool facingRight = true;
-	bool onGround;
+    bool onGround;
     bool blocked;
     bool inWater;
-
-    const std::vector<std::wstring>* sprite;
 
     Entity();
 
@@ -46,4 +44,7 @@ public:
 
     int getX() const { return (int)posX; }
     int getY() const { return (int)posY; }
+
+private:
+    std::vector<std::wstring> sprite; // simpan langsung, bukan pointer
 };

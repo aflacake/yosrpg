@@ -20,49 +20,49 @@ Game::Game()
     // ===== LOAD PLAYER SPRITES =====
     player.setIdleRight(
         SpriteLoader::load(
-            L"assets/sprites/player/idle_right.txt"
+            L"..\\..\\assets\\sprites\\player\\idle_right.txt"
         )
     );
 
     player.setIdleLeft(
         SpriteLoader::load(
-            L"assets/sprites/player/idle_left.txt"
+            L"..\\..\\assets/sprites/player/idle_left.txt"
         )
     );
 
     player.setWalkRight(
         SpriteLoader::load(
-            L"assets/sprites/player/walk_right_1.txt"
+            L"..\\..\\assets/sprites/player/walk_right_1.txt"
         ),
         SpriteLoader::load(
-            L"assets/sprites/player/walk_right_2.txt"
+            L"..\\..\\assets/sprites/player/walk_right_2.txt"
         )
     );
 
     player.setWalkLeft(
         SpriteLoader::load(
-            L"assets/sprites/player/walk_left_1.txt"
+            L"..\\..\\assets/sprites/player/walk_left_1.txt"
         ),
         SpriteLoader::load(
-            L"assets/sprites/player/walk_left_2.txt"
+            L"..\\..\\assets/sprites/player/walk_left_2.txt"
         )
     );
 
     player.setFallRight(
         SpriteLoader::load(
-            L"assets/sprites/player/fall_right.txt"
+            L"..\\..\\assets/sprites/player/fall_right.txt"
         )
     );
 
     player.setHitWallRight(
         SpriteLoader::load(
-            L"assets/sprites/player/hit_wall_right.txt"
+            L"..\\..\\assets/sprites/player/hit_wall_right.txt"
         )
     );
 
     player.setInWaterRight(
         SpriteLoader::load(
-            L"assets/sprites/player/in_water_right.txt"
+            L"..\\..\\assets/sprites/player/in_water_right.txt"
         )
     );
 }
@@ -112,13 +112,6 @@ void Game::update(float dt) {
 void Game::render(float time) {
 
     renderer.clear();
-
-    // DEBUG: posisi player
-    renderer.drawChar(
-        player.getX() - camera.x,
-        player.getY() - camera.y,
-        L'@'
-    );
 
     // ===============================
     // RENDER TILE WORLD (ANIMATED)
