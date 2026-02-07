@@ -1,3 +1,5 @@
+![logo](https://raw.githubusercontent.com/aflacake/yosrpg/675f441a6b879d92000c1475e7c5654ff2b4d472/img/logo.png)
+
 # YosRPG
 Simple RPG game
 
